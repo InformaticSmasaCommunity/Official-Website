@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informatic Smasa Community</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- KODE CSS UNTUK POP-UP LAYANG (MODAL) -->
+    <style>
+        .card {
+            cursor: pointer;
+        }
+
+        .modal-overlay {
+            display: none; 
+            position: fixed;
+            z-index: 9999; /* Memastikan melayang di atas semua elemen */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); 
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 580px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: muncul 0.3s ease-out;
+        }
+
+        @keyframes muncul {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #777;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #e74c3c;
+        }
+
+        .modal-body {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .modal-img {
+            width: 140px; 
+            height: 140px;
+            object-fit: cover;
+            border-radius: 10px;
+            flex-shrink: 0;
+            background-color: #f0f0f0;
+        }
+
+        .modal-text {
+            flex: 1;
+        }
+
+        .modal-text h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-size: 1.4rem;
+        }
+
+        .modal-text p {
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .btn-modal {
+            background-color: #48c78e; 
+            color: white;
+            border: none;
+            padding: 0.6rem 1.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.3s;
+        }
+
+        .btn-modal:hover {
+            background-color: #38a171;
+        }
+
+        @media (max-width: 600px) {
+            .modal-body {
+                flex-direction: column;
+                text-align: center;
+            }
+            .modal-img {
+                width: 110px;
+                height: 110px;
+            }
+        }
+    </style>
+    <link rel="icon" type="image/png" href="ISC HD POL ASELI.webp">
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="ISC HD POL ASELI.webp" alt="Logo" class="logo-box">
+                <h2>ISC </h2>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html#home">Beranda</a></li>
+                    <li><a href="sejarah.html">Sejarah</a></li> 
+                    <li><a href="dokumentasi.html">Dokumentasi</a></li> 
+                    <li><a href="index.html#pencapaian">Pencapaian</a></li>
+                    <li><a href="https://issac-flax.vercel.app/">ISSAC</a></li> 
+                    <li><a href="pendaftaran.html">Seleksi</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <h1>INFORMATIC SMASA COMMUNITY</h1>
+            <p>Ekstrakurikuler Berbasis IT di SMASA</p>
+            <a href="#about" class="btn">Pelajari Lebih Lanjut</a>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">Tentang Kami</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>Visi Kami</h3>
+                    <p>Menjadi organisasi yang adaptif, inovatif, dan unggul dalam membangun komunitas yang berkelanjutan di era digital.</p>
+                    <h3>Misi Kami</h3>
+                    <ul>
+                        <li>Mengembangkan potensi dan kreativitas setiap anggota.</li>
+                        <li>Menjalankan program kerja yang berdampak langsung pada publik.</li>
+                        <li>Membangun jaringan kemitraan yang transparan dan kolaboratif.</li>
+                    </ul>
+                </div>
+                
+                <!-- BAGIAN GAMBAR YANG SUDAH DIPERBAIKI -->
+                <div class="about-img">
+                    <img src="struktur.webp" alt="Foto Kegiatan / Struktur">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="programs" class="programs">
+        <div class="container">
+            <h2 class="section-title">Divisi</h2>
+            <div class="card-grid">
+                
+                <!-- FOTOGRAFI -->
+                <div class="card" onclick="openModal('Divisi Fotografi', 'Divisi yang kerjaannya freeze momen-momen krusial lewat kamera. Gak cuma sekadar jepret foto, tapi mereka yang ngatur lighting, angle, Shutter sampai Iso biar vibes nya dapet dan hasil visualnya kelihatan spillable & mahal! 💅✨', 'fotografi.webp')">
+                    <h3>Fotografi</h3>
+                    <p>Bikin momen berharga berhenti di satu jepretan. Tugasnya ngatur angle, lighting, dan komposisi biar visualnya kelihatan dapet vibes-nya!</p>
+                </div>
+
+                <!-- DESAIN GRAFIS -->
+                <div class="card" onclick="openModal('Divisi Desain Grafis', 'Divisi yang nyulap teks atau ide yang rumit jadi konten visual yang aesthetic, siap feed, dan langsung narik perhatian (auto-scroll stopper). Dari kombinasi font, warna, Ilustrasi sampai Color Grading, semuanya dipikirin biar pesan yang mau disampaikan kelihatan makin kece! 🎨🔥', 'desain.webp')">
+                    <h3>Desain Grafis</h3>
+                    <p>Nyulap ide, foto, dan teks jadi konten visual yang aesthetic, eye-catching, dan punya palette warna yang ciamik buat narik perhatian! 🎨🔥</p>
+                </div>
+
+                <!-- JURNALISTIK -->
+                <div class="card" onclick="openModal('Divisi Jurnalistik', 'Divisi yang jadi brain di balik cerita dan narasi. Kerjaannya riset, kepoin fakta (fact-checking), wawancara narasumber, Proposal sampai nyusun caption atau artikel yang engaging banget. Pokoknya mereka yang mastiin informasi yang keluar itu akurat, berbobot, dan gak bikin salah paham! 🧠📚', 'jurnalistik.webp')">
+                    <h3>Jurnalistik</h3>
+                    <p>Otak di balik narasi dan cerita. Tugasnya riset, wawancara, dan nulis artikel atau caption yang akurat, padat, dan engaging! 🧠📚</p>
+                </div>
+
+                <!-- DESAIN WEB -->
+                <div class="card" onclick="openModal('Divisi Desain Web', 'Divisi yang bikin landing page dan website tampil cakep plus nggak bikin pusing pengguna (smooth user experience) sampai pembuatan AI. Mereka yang ngerancang layout dan navigasi biar semua karya foto, desain, dan artikel bisa ditampung dengan rapi dan tetep responsif di layar HP! 💻🚀', 'desweb.webp')">
+                    <h3>Desain Web</h3>
+                    <p>Bikin website yang estetis dan user-friendly. Mastiin semua info, foto, dan desain tertata rapi plus nyaman diakses dari HP! 💻✨</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="pencapaian" class="about">
+        <div class="container">
+            <h2 class="section-title">Pencapaian</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <ul>
+                        <li>Juara 1 FLS3N Cabang Fotografi Tingkat Kabupaten Nganjuk Tahun 2026</li>
+                        <li>Juara 1 FLS3N Cabang Komik Digital Tingkat Kabupaten Nganjuk Tahun 2026</li>
+                        <li>Juara 2 FLS3N Cabang Film Pendek Tingkat Kabupaten Nganjuk Tahun 2026</li>
+                        <li>Juara Favorit Digital Creative Competition Tingkat Kabupaten, KOMINFO Nganjuk Tahun 2025</li>
+                        <li>Juara 3 Lomba Fotografi LFCB Tingkat Kabupaten Tahun 2022</li>
+                        <li>Juara 3 Lomba Fotografi HUT TNI Tingkat Kabupaten Tahun 2023</li>
+                        <li>Juara 2 Xtention UGM Cabang ShortMovie Tingkat Nasional Tahun 2023</li>
+                        <li>Juara 3 FLS2N Cabang Fotografi Tingkat Kabupaten Tahun 2024</li>
+                        <li>Juara 2 FLS2N Cabang ShortMovie Tingkat Kabupaten Tahun 2024</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container footer-grid">
+            <div class="footer-info">
+                <h3>Informatic Smasa Community</h3>
+                <p>Jl. Kap. Kasihin Hs No.4, Kabupaten Nganjuk</p>
+                <p>Email: info@organisasi.org</p>
+                <p>Technology With Us, Technology be on Our Future</p>
+            </div>
+            <div class="footer-links">
+                <h3>Media Sosial</h3>
+                <ul>
+                    <li><a href="https://www.instagram.com/isc.smasa?igsh=MXZtZHZqMG14ODVsag==">Instagram</a></li>
+                    <li><a href="https://youtube.com/@iscsmasa640?si=KB4J1mIWBbJNbc7U">YouTube</a></li>
+                    <li><a href="https://vm.tiktok.com/ZS9rpBKgXWk9H-W91Gw/">TikTok</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Informatic Smasa Community</p>
+        </div>
+    </footer>
+
+    <!-- KOTAK POP-UP (MODAL) -->
+    <div id="programModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-body">
+                <!-- Tag <img> ini akan berubah gambarnya secara otomatis via JavaScript -->
+                <img id="modalImg" src="desweb.webp" alt="Ilustrasi Divisi" class="modal-img">
+                <div class="modal-text">
+                    <h3 id="modalTitle">Judul Program</h3>
+                    <p id="modalDesc">Deskripsi detail program akan muncul di sini.</p>
+                    <button class="btn-modal" onclick="closeModal()">Got It</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGIKA JAVASCRIPT UNTUK MODAL DINAMIS -->
+    <script>
+        const modal = document.getElementById('programModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalImg = document.getElementById('modalImg');
+
+        // Fungsi penanganan modal dengan parameter gambar khusus
+        function openModal(judul, deskripsi, gambar) {
+            modalTitle.innerText = judul;
+            modalDesc.innerText = deskripsi;
+            if (gambar) {
+                modalImg.src = gambar; // Mengganti sumber gambar sesuai kartu yang diklik
+            }
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+
+</body>
+</html>

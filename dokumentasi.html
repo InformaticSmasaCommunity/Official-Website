@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi - Informatic Smasa Community</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* BASE & CONTAINER FIX */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        .page-header {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 2.5rem 1rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+            word-wrap: break-word;
+        }
+
+        .breadcrumbs {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .content-area {
+            background-color: #f4f6f8;
+            padding: 2rem 1rem;
+        }
+
+        /* GRID RESPONGSIF - MENYESUAIKAN LAYAR < 370PX */
+        .proker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Dinamis hingga layar terkeceil */
+            gap: 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* KARTU PROKER */
+        .proker-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+            width: 100%;
+        }
+
+        .proker-title {
+            background-color: #ffffff;
+            color: #2c3e50;
+            padding: 0.8rem 0.5rem;
+            margin: 0;
+            font-size: 1.1rem;
+            text-align: center;
+            font-weight: 700;
+            border-bottom: 3px solid #27ae60;
+        }
+
+        /* CAROUSEL SLIDER GAMBAR */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 220px; /* Rasio proporsional */
+            overflow: hidden;
+            background-color: #1a252f;
+        }
+
+        .carousel-slide {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            flex-shrink: 0;
+            cursor: pointer; /* Indikator bahwa gambar bisa diklik/zoom */
+            transition: opacity 0.2s;
+        }
+
+        .carousel-slide img:hover {
+            opacity: 0.9;
+        }
+
+        /* TOMBOL PANAH GESER */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            user-select: none;
+            z-index: 10;
+        }
+
+        .nav-btn:hover {
+            background: #27ae60;
+        }
+
+        .prev-btn { left: 8px; }
+        .next-btn { right: 8px; }
+
+        /* INDIKATOR TITIK (DOTS) */
+        .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 5px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            background: #27ae60;
+            width: 16px;
+            border-radius: 10px;
+        }
+
+        /* OPTIMASI KHUSUS LAYAR SANGAT KECIL (< 370PX) */
+        @media (max-width: 370px) {
+            .content-area {
+                padding: 1.5rem 0.5rem;
+            }
+            .page-header h1 {
+                font-size: 1.4rem;
+            }
+            .carousel-container {
+                height: 180px; /* Mengecilkan rasio gambar di HP kecil */
+            }
+            .proker-title {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* FITUR LIGHTBOX PREVIEW / ZOOM GAMBAR */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 99999;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .lightbox-modal img {
+            max-width: 92%;
+            max-height: 85%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+            transition: transform 0.25s ease;
+        }
+
+        .lightbox-hint {
+            position: absolute;
+            bottom: 20px;
+            color: #ccc;
+            font-size: 0.85rem;
+            background: rgba(0,0,0,0.5);
+            padding: 5px 12px;
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+    <link rel="icon" type="image/png" href="ISC HD POL ASELI.webp">
+</head>
+<body>
+
+    <!-- HEADER & NAVIGASI -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="ISC HD POL ASELI.webp" alt="Logo" class="logo-box">
+                <h2>ISC </h2>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html#home">Beranda</a></li>
+                    <li><a href="sejarah.html">Sejarah</a></li> 
+                    <li><a href="dokumentasi.html">Dokumentasi</a></li> 
+                    <li><a href="index.html#pencapaian">Pencapaian</a></li>
+                    <li><a href="https://issac-flax.vercel.app/">ISSAC</a></li> 
+                    <li><a href="pendaftaran.html">Seleksi</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1>DOKUMENTASI KEGIATAN</h1>
+            <div class="breadcrumbs">
+                <span>Galeri Foto Informatic Smasa Community</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTENT AREA (8 PROKER) -->
+    <main class="content-area">
+        <div class="container">
+            <div class="proker-grid">
+
+                <!-- PROKER 1 -->
+                <div class="proker-card">
+                    <h3 class="proker-title">Family Gathering</h3>
+                    <div class="carousel-container" data-carousel>
+                        <button class="nav-btn prev-btn" onclick="moveSlide(this, -1)">&lt;</button>
+                        <div class="carousel-slide">
+                            <img src="dokumentasi/fg1.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/fg2.webp" alt="Foto 2" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/fg3.webp" alt="Foto 3" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/fg4.webp" alt="Foto 3" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/fg5.webp" alt="Foto 3" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/fg6.webp" alt="Foto 3" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/fg7.webp" alt="Foto 3" onclick="openZoom(this.src)">
+                        </div>
+                        <button class="nav-btn next-btn" onclick="moveSlide(this, 1)">&gt;</button>
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+
+                <!-- PROKER 2 -->
+                <div class="proker-card">
+                    <h3 class="proker-title">Reorganisasi</h3>
+                    <div class="carousel-container" data-carousel>
+                        <button class="nav-btn prev-btn" onclick="moveSlide(this, -1)">&lt;</button>
+                        <div class="carousel-slide">
+                            <img src="dokumentasi/reor1.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/reor7.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/reor3.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/reor4.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/reor5.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/reor6.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/reor2.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/reor8.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/reor9.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/reor10.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                        </div>
+                        <button class="nav-btn next-btn" onclick="moveSlide(this, 1)">&gt;</button>
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+
+                <!-- PROKER 3 -->
+                <div class="proker-card">
+                    <h3 class="proker-title">Startion</h3>
+                    <div class="carousel-container" data-carousel>
+                        <button class="nav-btn prev-btn" onclick="moveSlide(this, -1)">&lt;</button>
+                        <div class="carousel-slide">
+                            <img src="dokumentasi/startion1.webp" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/startion2.webp" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/startion3.webp" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/startion4.webp" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/startion5.webp" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/startion6.webp" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/startion7.webp" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/startion8.webp" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/startion9.webp" onclick="openZoom(this.src)">
+                        </div>
+                        <button class="nav-btn next-btn" onclick="moveSlide(this, 1)">&gt;</button>
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+
+                <!-- PROKER 4 -->
+                <div class="proker-card">
+                    <h3 class="proker-title">Masa Orientasi</h3>
+                    <div class="carousel-container" data-carousel>
+                        <button class="nav-btn prev-btn" onclick="moveSlide(this, -1)">&lt;</button>
+                        <div class="carousel-slide">
+                            <img src="dokumentasi/moa1.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/moa2.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/moa3.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/moa4.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/moa5.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                        </div>
+                        <button class="nav-btn next-btn" onclick="moveSlide(this, 1)">&gt;</button>
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+
+                <!-- PROKER 5 -->
+                <div class="proker-card">
+                    <h3 class="proker-title">Share To Our</h3>
+                    <div class="carousel-container" data-carousel>
+                        <button class="nav-btn prev-btn" onclick="moveSlide(this, -1)">&lt;</button>
+                        <div class="carousel-slide">
+                            <img src="dokumentasi/sto1.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/sto2.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/sto3.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/sto4.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/sto5.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/sto6.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/sto7.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/sto8.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                        </div>
+                        <button class="nav-btn next-btn" onclick="moveSlide(this, 1)">&gt;</button>
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+
+                <!-- PROKER 6 -->
+                <div class="proker-card">
+                    <h3 class="proker-title">Gastra</h3>
+                    <div class="carousel-container" data-carousel>
+                        <button class="nav-btn prev-btn" onclick="moveSlide(this, -1)">&lt;</button>
+                        <div class="carousel-slide">
+                            <img src="dokumentasi/gastra1.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/gastra2.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/gastra3.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/gastra4.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/gastra5.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/gastra6.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/gastra7.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/gastra8.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/gastra9.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/gastra10.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/gastra11.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/gastra12.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/gastra13.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                            <img src="dokumentasi/gastra14.webp" alt="Foto 1" onclick="openZoom(this.src)">
+                        </div>
+                        <button class="nav-btn next-btn" onclick="moveSlide(this, 1)">&gt;</button>
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="container footer-grid">
+            <div class="footer-info">
+                <h3>Informatic Smasa Community</h3>
+                <p>Jl. Kap. Kasihin Hs No.4, Kabupaten Nganjuk</p>
+                <p>Email: info@organisasi.org</p>
+                <p>Technology With Us, Technology be on Our Future</p>
+            </div>
+            <div class="footer-links">
+                <h3>Media Sosial</h3>
+                <ul>
+                    <li><a href="https://www.instagram.com/isc.smasa?igsh=MXZtZHZqMG14ODVsag==">Instagram</a></li>
+                    <li><a href="https://youtube.com/@iscsmasa640?si=KB4J1mIWBbJNbc7U">YouTube</a></li>
+                    <li><a href="https://vm.tiktok.com/ZS9rpBKgXWk9H-W91Gw/">TikTok</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Informatic Smasa Community</p>
+        </div>
+    </footer>
+
+    <!-- POP-UP LIGHTBOX UNTUK PREVIEW ZOOM GAMBAR -->
+    <div id="lightbox" class="lightbox-modal" onclick="closeZoom()">
+        <img id="lightbox-img" src="" alt="Preview Gambar">
+        <span class="lightbox-hint">Klik di mana saja untuk menutup ✖</span>
+    </div>
+
+    <!-- SCRIPT JAVASCRIPT SLIDER & ZOOM -->
+    <script>
+        // Logika Slider
+        document.querySelectorAll('[data-carousel]').forEach(container => {
+            const slide = container.querySelector('.carousel-slide');
+            const images = slide.querySelectorAll('img');
+            const dotsContainer = container.querySelector('.carousel-dots');
+            
+            container.dataset.currentIndex = 0;
+
+            images.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(container, index));
+                dotsContainer.appendChild(dot);
+            });
+        });
+
+        function moveSlide(btn, direction) {
+            const container = btn.closest('[data-carousel]');
+            const images = container.querySelectorAll('.carousel-slide img');
+            let index = parseInt(container.dataset.currentIndex) + direction;
+
+            if (index < 0) index = images.length - 1;
+            if (index >= images.length) index = 0;
+
+            goToSlide(container, index);
+        }
+
+        function goToSlide(container, index) {
+            const slide = container.querySelector('.carousel-slide');
+            const dots = container.querySelectorAll('.dot');
+            
+            container.dataset.currentIndex = index;
+            slide.style.transform = `translateX(-${index * 100}%)`;
+
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        // Logika Preview/Zoom Gambar Lightbox
+        function openZoom(imageSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = imageSrc;
+            lightbox.style.display = 'flex';
+        }
+
+        function closeZoom() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>

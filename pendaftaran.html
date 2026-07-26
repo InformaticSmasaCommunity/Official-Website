@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleksi Anggota Baru - Informatic Smasa Community</title>
+    <link rel="icon" type="image/png" href="ISC HD POL ASELI.webp">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ANTISIPASI LAYAR PENDEK DI HP (FULL HEIGHT FLEXBOX) */
+        html, body {
+            height: 100%;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8fafc;
+        }
+
+        .page-header {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        .page-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+        .breadcrumbs {
+            font-size: 0.95rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* FLEX: 1 AGAR KONTEN MENGIKUTI TINGGI LAYAR */
+        .content-area {
+            flex: 1;
+            padding: 3.5rem 0;
+        }
+        
+        .main-content {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .selection-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+            border: 1px solid #eef2f5;
+        }
+
+        .selection-intro p {
+            font-size: 1.08rem;
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 1.2rem;
+            text-align: justify;
+        }
+
+        /* STYLING KARTU ALUR SELEKSI */
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .step-box {
+            background: #f8fafc;
+            border-left: 4px solid #27ae60;
+            padding: 1.2rem;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .step-box:hover {
+            transform: translateY(-3px);
+            background: #f1f8f3;
+        }
+
+        .step-number {
+            font-weight: 700;
+            color: #27ae60;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.3rem;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-desc {
+            font-size: 0.9rem;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* SYARAT KETENTUAN */
+        .requirements-box {
+            background-color: #f0fdf4;
+            border: 1px dashed #27ae60;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .requirements-box h3 {
+            color: #2c3e50;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .requirements-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .requirements-box li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.6rem;
+            color: #334155;
+            font-size: 0.98rem;
+        }
+
+        .requirements-box li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        /* TOMBOL CTA AKSI UTAMA */
+        .action-area {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .btn-seleksi {
+            display: inline-block;
+            background: linear-gradient(135deg, #27ae60, #219653);
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 1rem 2.8rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        .btn-seleksi:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(39, 174, 96, 0.5);
+            background: linear-gradient(135deg, #219653, #1e824c);
+        }
+
+        @media (max-width: 600px) {
+            .selection-card {
+                padding: 1.5rem;
+            }
+            .btn-seleksi {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER & NAVIGASI -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="ISC HD POL ASELI.webp" alt="Logo ISC" class="logo-box">
+                <h2>ISC</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html#home">Beranda</a></li>
+                    <li><a href="sejarah.html">Sejarah</a></li> 
+                    <li><a href="dokumentasi.html">Dokumentasi</a></li> 
+                    <li><a href="index.html#pencapaian">Pencapaian</a></li>
+                    <li><a href="https://issac-flax.vercel.app/">ISSAC</a></li> 
+                    <li><a href="pendaftaran.html">Seleksi</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1>SELEKSI ANGGOTA BARU</h1>
+            <div class="breadcrumbs">
+                <span>Informatic Smasa Community</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTENT AREA -->
+    <main class="content-area">
+        <div class="container main-content">
+            <div class="selection-card">
+                
+                <!-- KALIMAT DUMMY / PENGANTAR SELEKSI -->
+                <div class="selection-intro">
+                    <p>Selamat datang calon talenta digital SMA Negeri 1 Nganjuk! Proses seleksi Informatic Smasa Community (ISC) dirancang untuk menemukan calon anggota yang memiliki passion tinggi, semangat belajar kolaboratif, serta ketertarikan mendalam di bidang teknologi informasi dan komunikasi.</p>
+
+                    <p>Kami mencari individu yang siap berkembang bersama, baik di bidang web development, multimedia, desain grafis, maupun eksplorasi teknologi terkini. Persiapkan diri kamu untuk menjadi bagian dari perjalanan inovasi digital sekolah!</p>
+                </div>
+
+                <!-- ALUR SELEKSI INTERAKTIF -->
+                <div class="steps-container">
+                    <div class="step-box">
+                        <div class="step-number">Tahap 01</div>
+                        <div class="step-title">Pendaftaran</div>
+                        <div class="step-desc">Pengisian formulir identitas dan minat bidang teknologi secara online.</div>
+                    </div>
+                    <div class="step-box">
+                        <div class="step-number">Tahap 02</div>
+                        <div class="step-title">Uji Potensi</div>
+                        <div class="step-desc">Pengerjaan tantangan dasar atau wawancara singkat seputar logika & IT.</div>
+                    </div>
+                    <div class="step-box">
+                        <div class="step-number">Tahap 03</div>
+                        <div class="step-title">Pengumuman</div>
+                        <div class="step-desc">Pengumuman hasil akhir peserta yang resmi bergabung menjadi bagian dari ISC.</div>
+                    </div>
+                </div>
+
+                <!-- KOTAK SYARAT DAN KETENTUAN -->
+                <div class="requirements-box">
+                    <h3>📌 Persyaratan Umum</h3>
+                    <ul>
+                        <li>Siswa/i aktif SMA Negeri 1 Nganjuk.</li>
+                        <li>Memiliki komitmen tinggi untuk belajar dan berkontribusi aktif.</li>
+                        <li>Mempunyai ketertarikan pada salah satu divisi teknis/media ISC.</li>
+                        <li>Siap mengikuti seluruh rangkaian orientasi dan program kerja organisasi.</li>
+                    </ul>
+                </div>
+
+                <!-- TOMBOL MENUJU LINK SELEKSI -->
+                <div class="action-area">
+                    <!-- GANTI href DENGAN LINK FORM / SELEKSI KAMU -->
+                    <a href="https://informaticsmasaquiz.netlify.app/" target="_blank" class="btn-seleksi">
+                        🚀 Masuk ke Portal Seleksi
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="container footer-grid">
+            <div class="footer-info">
+                <h3>Informatic Smasa Community</h3>
+                <p>Jl. Kap. Kasihin Hs No.4, Kabupaten Nganjuk</p>
+                <p>Email: info@organisasi.org</p>
+                <p>Technology With Us, Technology be on Our Future</p>
+            </div>
+            <div class="footer-links">
+                <h3>Media Sosial</h3>
+                <ul>
+                    <li><a href="https://www.instagram.com/isc.smasa?igsh=MXZtZHZqMG14ODVsag==" target="_blank">Instagram</a></li>
+                    <li><a href="https://youtube.com/@iscsmasa640?si=KB4J1mIWBbJNbc7U" target="_blank">YouTube</a></li>
+                    <li><a href="https://vm.tiktok.com/ZS9rpBKgXWk9H-W91Gw/" target="_blank">TikTok</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Informatic Smasa Community</p>
+        </div>
+    </footer>
+
+</body>
+</html>
